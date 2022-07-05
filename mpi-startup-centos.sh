@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # Set our variables
-myBucket="rp-mpi-startup-scripts-01"
+myBucket="mpi-test-bucket-20220705"
 startup_script_log="/var/tmp/startup-script.out"
 
 
 #Check if the startup script has run before
-#FILE=/var/tmp/startup-script.out
 FILE=$startup_script_log
 if [ -f "$FILE" ]; then
 echo "$FILE exists. Startup Script has executed already."
@@ -17,7 +16,6 @@ echo "$FILE does not exist. Startup script has not run"
 #Log everything
 exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
-#exec 1>/var/tmp/startup-script.out 2>&1
 exec 1>$startup_script_log 2>&1
 
 #######################
@@ -61,7 +59,6 @@ vim /etc/ssh/sshd_config
 sed -i 's/.ssh\/authorized_keys/.ssh\/authorized_keys \/etc\/ssh\/authorized_keys/g' /etc/ssh/sshd_config
 
 #Copy keys to appropriate places
-#gsutil cp gs://rp-mpi-startup-scripts-01/authorized_keys /etc/ssh
 gsutil cp gs://$myBucket/authorized_keys /etc/ssh
 
 #Update permissions on key files
@@ -77,21 +74,15 @@ systemctl restart sshd.service
 #######################
 echo "mpi-instance-01 slots=1 max_slots=1" > /var/tmp/mpihosts
 echo "mpi-instance-02  slots=1 max_slots=1" >> /var/tmp/mpihosts
-echo "mpi-instance-03  slots=1 max_slots=1" >> /var/tmp/mpihosts
 
 
 #Copy MPI setup script, ready for use
-#gsutil cp gs://rp-mpi-startup-scripts-01/mpi-env-setup.sh /var/tmp/mpi-env-setup.sh
 gsutil cp gs://$myBucket/mpi-env-setup.sh /var/tmp/mpi-env-setup.sh
 chmod 755 /var/tmp/mpi-env-setup.sh
 
-#######################
-# HPC Tweaks from https://cloud.google.com/architecture/best-practices-for-using-mpi-on-compute-engine#use_the_network-latency_profile should already be applied since using the hpc optimized image.
-#######################
-
 
 #######################
-#Finished & Reboot
+# Reboot
 #######################
 sudo reboot
 
