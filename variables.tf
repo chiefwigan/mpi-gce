@@ -1,7 +1,7 @@
 # Variables - change as required
 
 variable "project" {
-  default = "rp-test-project-306316"
+  default = "mpi-testing-dev"
 }
 
 variable "region" {
@@ -9,7 +9,7 @@ variable "region" {
 }
 
 variable "zone" {
-  default = "us-central1-a"
+  default = "us-central1-f"
 }
 
 variable "machine_type" {
@@ -21,11 +21,11 @@ variable "image" {
 }
 
 variable "startup_script" {
-    default = "gs://rp-mpi-startup-scripts-01/mpi-startup-centos.sh"
+    default = "gs://mpi-test-bucket-20220705/mpi-startup-centos.sh"
 }
 
 variable "num_vms" {
-    default = 3 #Ensure you have enough quota!
+    default = 2 #Ensure you have enough CPU quota!
 }
 
 variable "placement_policy_name" {
