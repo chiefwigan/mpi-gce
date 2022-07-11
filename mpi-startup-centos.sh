@@ -62,7 +62,8 @@ sed -i 's/.ssh\/authorized_keys/.ssh\/authorized_keys \/etc\/ssh\/authorized_key
 gsutil cp gs://$myBucket/authorized_keys /etc/ssh
 
 #Update permissions on key files
-chmod 644 /var/tmp/mpi-key
+#chmod 644 /var/tmp/mpi-key
+chmod 644 /var/tmp/id_rsa
 chmod 644 /etc/ssh/authorized_keys
 
 #Restart SSHd - may not be required

@@ -9,7 +9,7 @@ echo "*************************************"
 
 mkdir ~/.ssh
 chmod 700 ~/.ssh 
-gsutil cp gs://$myBucket/mpi-key ~/.ssh/id_rsa
+gsutil cp gs://$myBucket/id_rsa ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
 touch ~/.ssh/config
