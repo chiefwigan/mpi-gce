@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set our variables
-myBucket="mpi-test-bucket-20220705"
+myBucket="YOUR-BUCKET"
 
 echo "*************************************"
 echo "Setting up SSH configuration"
