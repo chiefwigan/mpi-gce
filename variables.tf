@@ -25,7 +25,7 @@ variable "startup_script" {
 }
 
 variable "num_vms" {
-    default = 2 #Ensure you have enough CPU_CORES quota for machine type!
+    default = 2 #Ensure you have enough C2 CPUs quota in the appropriate region
 }
 
 variable "placement_policy_name" {
