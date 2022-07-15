@@ -11,7 +11,7 @@ This project is a simple set of scripts to show how to get microsecond latency b
 
 ## Files
 
-- main.tf - creates 2 x GCE VMs to test MPI latency against
+- main.tf - creates 2 x GCE VMs and a compact placement policy to test MPI latency against
 - installation-setup.sh - creates an ssh key-pair and copy to your bucket
 - mpi-startup-centos.sh - sets up the VM on boot, installing both OpenMPI and IntelMPI as well as a few other useful tools.
 - mpi-env-setup.sh - to be run once on the VM you ssh to, to run the latency test.
