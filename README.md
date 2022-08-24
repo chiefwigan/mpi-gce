@@ -23,17 +23,18 @@ This project is a simple set of scripts to show how to get microsecond latency b
 
 The below assumes the commands below are being run in Google's Cloud Shell: 
 
-- Via your google Cloud Console, open up the Cloud Shell
-- Clone this repository to a directory of your choice which will create an mpi-gce directory
+- Via your Google Cloud Console, open up the Cloud Shell
+- Clone this repository to a directory of your choice which will create an mpi-gce directory: `git clone https://github.com/richardpaget/mpi-gce`
 - Inside the mpi-gce directory, make installation-setup.sh executable: `chmod 755 installation-setup.sh`, then execute the file with your project_id as a parameter, eg. `./installation_setup.sh my-project`
 - In the same directory run: `terraform init`
 - In the same directory run: `terraform apply`
 - Assuming you're happy (your should see 3 changes to make), confirm with 'Yes'. 2 x GCE VMs should be created.
-- SSH to mpi-instance-01
-- Execute `/var/tmp/mpi-env-setup.sh` - this copies ssh keys to the correct place and updates sshd configuration.
-- Log onto mpi-instance-02 then logout/exit from mpi-instance-02 (this allows remote SSH - there is likely a more sophisticated way to do this, but in the interest of time, it's not too painful to do!)
-- From mpi-instance-01, run the latency test as required.
-
+- SSH to `mpi-instance-01` and `mpi-instance-02` either via the Google Cloud Console or from Cloud Shell
+- Execute `/var/tmp/mpi-env-setup.sh` on `mpi-instance-01` - this copies ssh keys to the correct place and updates sshd configuration.
+- As per the instructions from the above executed file run:  
+`source /opt/intel/psxe_runtime/linux/bin/psxevars.sh`  
+then    
+`mpirun -np 2 -ppn 1 -hosts mpi-instance-01,mpi-instance-02 IMB-MPI1 PingPong`
 
 You should hopefully see latency of around 8-10 microseconds for the first 512 bytes using the Intel MPI test.
 

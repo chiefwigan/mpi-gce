@@ -7,7 +7,7 @@ echo "****************************************"
 echo "Setting up SSH configuration"
 echo "****************************************"
 
-gsutil cp gs://$myBucket/id_rsa ~/.ssh/id_rsa
+gsutil -q cp gs://$myBucket/id_rsa ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
 touch ~/.ssh/config
