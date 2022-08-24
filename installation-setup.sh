@@ -1,8 +1,14 @@
 #!/bin/bash
+#Check if project id has been given
+if [ -z "$1" ] 
+    then 
+    echo "Missing Parameter - please provide your Project ID eg. ./installation_setup.sh my-project-id"
+    exit
+else
 
-#set our variables
-#myBucket=YOUR-BUCKET
-myProject=YOUR-PROJECT
+#Get variables from command line
+myProject=$1
+
 
 echo ######################################################
 echo Updating files with your project name: $myProject
@@ -41,10 +47,8 @@ gsutil cp mpi-*.sh gs://$myBucket
 gsutil cp id_rsa gs://$myBucket
 gsutil cp authorized_keys gs://$myBucket
 
-
-
-
-
 echo "Unless you see any errors, please go ahead and run:"
 echo "terraform init"
 echo "terraform apply"
+
+fi
