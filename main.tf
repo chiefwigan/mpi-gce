@@ -12,14 +12,13 @@ provider "google-beta" {
   zone    = var.zone
 }
 
-
 ###############################################################################
 # Create GCE VMs
 ###############################################################################
 
 resource "google_compute_instance" "vm_instance" {
   provider = google-beta
-  count = var.num_vms # Set this to the same number as vm_count in the above Compact Placement policy.
+  count = var.num_vms 
 
   name = format("mpi-instance-0%s", count.index + 1)
   machine_type = var.machine_type
@@ -40,17 +39,16 @@ resource "google_compute_instance" "vm_instance" {
     }
   }
   service_account {
-    scopes = ["storage-ro"] # Scope required to read from GCS bucket
+    scopes = ["storage-ro"]
   }
 
   scheduling {
-    # Instances with resource policies do not support live migration.
     on_host_maintenance = "TERMINATE"
-    automatic_restart   = false # This isn't mentioned as a dependency in the TF documentation re compact placement
+    automatic_restart   = false
    }
   
   advanced_machine_features {
-    threads_per_core = 1 # When running TF apply, this is an update to the VMs, but looks like it wants to create additional VMs & complains. Perhaps need to delete VMs first.
+    threads_per_core = 1
   }
 
   resource_policies = [google_compute_resource_policy.compact_placement_policy.id]
@@ -65,7 +63,7 @@ resource "google_compute_resource_policy" "compact_placement_policy" {
   name   = var.placement_policy_name
   region = var.region
   group_placement_policy {
-    vm_count = var.num_vms  # This needs to be the same as the # of VMs created.
+    vm_count = var.num_vms
     collocation = "COLLOCATED"
   }
 }

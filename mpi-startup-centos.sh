@@ -4,14 +4,17 @@
 myBucket="YOUR-BUCKET"
 startup_script_log="/var/tmp/startup-script.out"
 
+######################################################
+#Check if this file has already run and set up log
+######################################################
 
 # Check if the startup script has run before
 FILE=$startup_script_log
 if [ -f "$FILE" ]; then
-echo "$FILE exists. Startup Script has executed already."
-exit
+    echo "$FILE exists. Startup Script has executed already."
+    exit
 else 
-echo "$FILE does not exist. Startup script has not run"
+    echo "$FILE does not exist. Startup script has not run"
 
 # Log everything - probably a little excessive, but good to be able to see what's going on.
 exec 3>&1 4>&2
@@ -19,7 +22,7 @@ trap 'exec 2>&4 1>&3' 0 1 2 3
 exec 1>$startup_script_log 2>&1
 
 ######################################################
-#Install Pre-requisites
+#Update and Install Pre-requisites
 ######################################################
 sudo yum -y update
 
@@ -52,17 +55,9 @@ chmod 644 /etc/ssh/authorized_keys
 #Reload sshd
 systemctl reload sshd
 
-######################################################
-#Add hosts to host file for MPI run.
-######################################################
-echo "mpi-instance-01 slots=1 max_slots=1" > /var/tmp/mpihosts
-echo "mpi-instance-02  slots=1 max_slots=1" >> /var/tmp/mpihosts
-
-
 #Copy MPI setup script, ready for use
 gsutil cp gs://$myBucket/mpi-env-setup.sh /var/tmp/mpi-env-setup.sh
 chmod 755 /var/tmp/mpi-env-setup.sh
-
 
 ######################################################
 # Reboot
