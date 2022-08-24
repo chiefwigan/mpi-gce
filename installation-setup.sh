@@ -16,7 +16,7 @@ echo ######################################################
 rndNum=`echo $RANDOM | md5sum | head -c 20`
 #Set bucket name
 myBucket="mpi-test-bucket-$rndNum"
-gsutil mb $myBucket
+gsutil mb gs://"$myBucket"
 echo "Bucket Name is: $myBucket"
 
 
