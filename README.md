@@ -29,6 +29,7 @@ The below assumes the commands below are being run in Google's Cloud Shell:
 - In the same directory run: `terraform init`
 - In the same directory run: `terraform apply`
 - Assuming you're happy (your should see 3 changes to make), confirm with 'Yes'. 2 x GCE VMs should be created.
+- Give the machines a couple of minutes to run their startup scripts.
 - SSH to `mpi-instance-01` and `mpi-instance-02` either via the Google Cloud Console or from Cloud Shell
 - Execute `/var/tmp/mpi-env-setup.sh` on `mpi-instance-01` - this copies ssh keys to the correct place and updates sshd configuration.
 - As per the instructions from the above executed file run:  
@@ -36,7 +37,7 @@ The below assumes the commands below are being run in Google's Cloud Shell:
 then    
 `mpirun -np 2 -ppn 1 -hosts mpi-instance-01,mpi-instance-02 IMB-MPI1 PingPong`
 
-You should hopefully see latency of around 8-10 microseconds for the first 512 bytes using the Intel MPI test.
+You should hopefully see latency of around 8-10 microseconds for the first 512 bytes using the Intel MPI test. Note - I've seen variations of between 7 to 12 microseconds dueing this basic testing.
 
 
 ## Housekeeping
