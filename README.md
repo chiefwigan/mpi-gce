@@ -23,6 +23,9 @@ This project is a simple set of scripts to show how to get microsecond latency b
 The below assumes the commands below are being run in Google's Cloud Shell: 
 
 1. Create a bucket - this will be used to host some of the scripts from this repo
+
+`gsutil mb gs://202208241042`
+
 2. Clone this repository
 3. Replace 'YOUR-BUCKET' in all files with the bucket you created in  
 
