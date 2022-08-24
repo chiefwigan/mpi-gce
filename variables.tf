@@ -9,7 +9,7 @@ variable "region" {
 }
 
 variable "zone" {
-  default = $region"-f" # For us-central1 zones a,b,c & f are valid. See here for other regions/zones: https://cloud.google.com/compute/docs/regions-zones
+  default = "us-central1-f" # For us-central1 zones a,b,c & f are valid. See here for other regions/zones: https://cloud.google.com/compute/docs/regions-zones
 }
 
 variable "machine_type" {
