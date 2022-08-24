@@ -12,29 +12,30 @@ This project is a simple set of scripts to show how to get microsecond latency b
 
 ## Files
 
-- main.tf - creates 2 x GCE VMs and a compact placement policy to test MPI latency against
-- installation-setup.sh - creates a randomly names bucket an ssh key-pair and copies the bucket and project name across all files as required.
-- mpi-startup-centos.sh - sets up the VM and installs IntelMPI via Google's [HPC Tools GitHub repo](https://github.com/GoogleCloudPlatform/hpc-tools.git).
-- mpi-env-setup.sh - to be run once one the VM you want to run the latency test from.
-- variables.sh - variables for main.tf including region, number of VMs, project id etc.
+- `main.tf` - creates 2 x GCE VMs and a compact placement policy to test MPI latency against
+- `installation-setup.sh` - creates a randomly names bucket an ssh key-pair and copies the bucket and project name across all files as required.
+- `mpi-startup-centos.sh` - sets up the VM and installs IntelMPI via Google's [HPC Tools GitHub repo](https://github.com/GoogleCloudPlatform/hpc-tools.git).
+- `mpi-env-setup.sh` - to be run once one the VM you want to run the latency test from.
+- `variables.sh` - variables for main.tf including region, number of VMs, project id etc.
 
 
 ## How to install
 
 The below assumes the commands below are being run in Google's Cloud Shell: 
 
-1. Clone this repository to a directory off your choice
-2. Inside the mpi-gce directory, make installation-setup.sh executable: `chmod 755 installation-setup.sh`, then execute the file with your project_id as a parameter, eg. `./installation_setup.sh my-project`. 
-6. In the same directory run: terraform init
-7. In the same directory run: terraform apply
-8. Assuming you're happy (your should see 3 changes to make), confirm with 'Yes'. 2 x GCE VMs should be created.
-9. SSH to mpi-instance-01
-10. Execute /var/tmp/mpi-env-setup.sh - this copies ssh keys to the correct place and updates sshd configuration.
-11. Log onto mpi-instance-02 then logout/exit from mpi-instance-02 (this allows remote SSH - there is likely a more sophisticated way to do this, but in the interest of time, it's not too painful to do!)
-12. From mpi-instance-01, run the latency test as required.
+- Via your google Cloud Console, open up the Cloud Shell
+- Clone this repository to a directory of your choice which will create an mpi-gce directory
+- Inside the mpi-gce directory, make installation-setup.sh executable: `chmod 755 installation-setup.sh`, then execute the file with your project_id as a parameter, eg. `./installation_setup.sh my-project`
+- In the same directory run: `terraform init`
+- In the same directory run: `terraform apply`
+- Assuming you're happy (your should see 3 changes to make), confirm with 'Yes'. 2 x GCE VMs should be created.
+- SSH to mpi-instance-01
+- Execute `/var/tmp/mpi-env-setup.sh` - this copies ssh keys to the correct place and updates sshd configuration.
+- Log onto mpi-instance-02 then logout/exit from mpi-instance-02 (this allows remote SSH - there is likely a more sophisticated way to do this, but in the interest of time, it's not too painful to do!)
+- From mpi-instance-01, run the latency test as required.
 
 
-...and hopefully see latency of around 8-10 microseconds for the first 512 bytes using the Intel MPI test.
+You should hopefully see latency of around 8-10 microseconds for the first 512 bytes using the Intel MPI test.
 
 
 ## Housekeeping
