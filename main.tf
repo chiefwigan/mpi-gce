@@ -53,7 +53,6 @@ resource "google_compute_instance" "vm_instance" {
     threads_per_core = 1 # When running TF apply, this is an update to the VMs, but looks like it wants to create additional VMs & complains. Perhaps need to delete VMs first.
   }
 
-  #resource_policies = [google_compute_resource_policy.cp-us-central1.id]
   resource_policies = [google_compute_resource_policy.compact_placement_policy.id]
 }
 

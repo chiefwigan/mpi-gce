@@ -21,27 +21,10 @@ exec 1>$startup_script_log 2>&1
 ######################################################
 #Install Pre-requisites
 ######################################################
-sudo -y yum update
+sudo yum -y update
 
 # Install wget, git
 sudo yum -y install wget git
-
-# Install OpenMPI for CentOS
-#sudo yum -y install openmpi openmpi-devel
-
-# Install Centos development tools
-#sudo yum -y group install "Development Tools"
-
-
-######################################################
-# Install OSU benchmarks
-######################################################
-#wget https://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-5.8.tgz
-#tar -xvzf osu-micro-benchmarks-5.8.tgz
-#cd osu-micro-benchmarks-5.8
-#./configure CC=/usr/lib64/openmpi/bin/mpicc CXX=/usr/lib64/openmpi/bin/mpicxx
-#make; sudo make install
-#cd ..
 
 ######################################################
 #Install Google HPC Toolkit for Intel MPI Libraries

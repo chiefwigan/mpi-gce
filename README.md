@@ -46,3 +46,8 @@ The below assumes the commands below are being run in Google's Cloud Shell:
 
 
 ...and hopefully see latency of around 8-10 microseconds for the first 512 bytes using the Intel MPI test.
+
+
+## Housekeeping
+1. Run `terraform destroy` once finished with your testing
+2. Delete the bucket that was created `gsutil rm -r gs://YOUR-BUCKET`
