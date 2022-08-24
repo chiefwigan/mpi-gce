@@ -5,15 +5,15 @@ variable "project" {
 }
 
 variable "region" {
-  default = "us-central1"
+  default = "us-central1" # Change to your preferred region
 }
 
 variable "zone" {
-  default = "us-central1-f"
+  default = $region"-f" # For us-central1 zones a,b,c & f are valid. See here for other regions/zones: https://cloud.google.com/compute/docs/regions-zones
 }
 
 variable "machine_type" {
-  default = "c2-standard-60"
+  default = "c2-standard-60" 
 }
 
 variable "image" {
@@ -29,6 +29,6 @@ variable "num_vms" {
 }
 
 variable "placement_policy_name" {
-    default = "cp-us-central1"
+    default = "cp-us-central1" # Update as required
 }
 

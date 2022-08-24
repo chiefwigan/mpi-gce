@@ -3,7 +3,13 @@
 myBucket=YOUR-BUCKET
 
 echo ######################################################
-echo Creating SSH keys and copying files to $myBucket
+echo Updating files with your bucket name: $myBucket
+echo ######################################################
+
+sed -i "s/YOUR-BUCKET/$myBucket/g" *
+
+echo ######################################################
+echo Creating SSH keys and copying files to: $myBucket
 echo ######################################################
 
 # Create an ssh key pair with no password
