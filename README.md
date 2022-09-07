@@ -2,19 +2,19 @@
 
 ## Overview
 
-This project is a simple set of scripts to show how to get microsecond latency between two Google Cloud GCE nodes using Intel MPI (other MPI libraries are available).
+This project is a simple set of scripts to show how to get microsecond latency between two Google Cloud GCE VMs using [Compact Placement](https://medium.com/r/?url=https%3A%2F%2Fcloud.google.com%2Fcompute%2Fdocs%2Finstances%2Fdefine-instance-placement) and Intel MPI libraries (other MPI libraries are available) wihtout using InfiniBand hardware.
 
 ## Pre-requisites
 - A Google Cloud Platform account
-- Ability to create 2 x c2-standard-60 machines
+- Ability to create 2 x c2-standard-60 machines (smaller machine shapes can be used, but in testing the most powerful shape gave the best results)
 - Sufficient C2 CPU quota in the region of your choice to create the VMs
 - Ability to create a GCS bucket
 
 ## Files
 
 - `main.tf` - creates 2 x GCE VMs and a compact placement policy to test MPI latency against
-- `installation-setup.sh` - creates a randomly names bucket an ssh key-pair and copies the bucket and project name across all files as required.
-- `mpi-startup-centos.sh` - sets up the VM and installs IntelMPI via Google's [HPC Tools GitHub repo](https://github.com/GoogleCloudPlatform/hpc-tools.git).
+- `installation-setup.sh` - creates a randomly named bucket an ssh key-pair and copies the bucket and project name across all files as required.
+- `mpi-startup-centos.sh` - sets up the VM and installs Intel MPI via Google's [HPC Tools GitHub repo](https://github.com/GoogleCloudPlatform/hpc-tools.git).
 - `mpi-env-setup.sh` - to be run once one the VM you want to run the latency test from.
 - `variables.sh` - variables for main.tf including region, number of VMs, project id etc.
 
@@ -29,7 +29,7 @@ The below assumes the commands below are being run in Google's Cloud Shell:
 - In the same directory run: `terraform init`
 - In the same directory run: `terraform apply`
 - Assuming you're happy (your should see 3 changes to make), confirm with 'Yes'. 2 x GCE VMs should be created.
-- Give the machines a couple of minutes to run their startup scripts.
+- Give the machines a couple of minutes to run their startup script - when successful you should see the line: `source /opt/intel/psxe_runtime/linux/bin/psxevars.sh` presented to you when you SSH to the VMs. 
 - SSH to `mpi-instance-01` and `mpi-instance-02` either via the Google Cloud Console or from Cloud Shell
 - Execute `/var/tmp/mpi-env-setup.sh` on `mpi-instance-01` - this copies ssh keys to the correct place and updates sshd configuration.
 - As per the instructions from the above executed file run:  
