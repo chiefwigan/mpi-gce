@@ -5,7 +5,7 @@
 
 This project is a simple set of scripts to show the latency between two Google Cloud GCE VMs over Ethernet with the help of [Compact Placement](https://cloud.google.com/compute/docs/instances/define-instance-placement) and Intel MPI libraries (other MPI libraries are available).
 
-If you prefer to read a quick blog rather than a readme, check out the article about why i did this [here](https://#)
+If you prefer to read a quick blog rather than a readme, check out the article about why I did this [here](https://#)
 
 ## Pre-requisites
 - A Google Cloud Platform account
