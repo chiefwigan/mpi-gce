@@ -1,12 +1,13 @@
-# MPI Latency Test with Google Compute Engine using Compact Placement
+# Basic MPI Latency Test over Ethernet with Google Compute Engine
+
 
 ## Overview
 
-This project is a simple set of scripts to show how to get microsecond latency between two Google Cloud GCE VMs using [Compact Placement](https://medium.com/r/?url=https%3A%2F%2Fcloud.google.com%2Fcompute%2Fdocs%2Finstances%2Fdefine-instance-placement) and Intel MPI libraries (other MPI libraries are available) wihtout using InfiniBand hardware.
+This project is a simple set of scripts to show the microseconds latency between two Google Cloud GCE VMs over Ethernet with the help of [Compact Placement](https://cloud.google.com/compute/docs/instances/define-instance-placement) and Intel MPI libraries (other MPI libraries are available).
 
 ## Pre-requisites
 - A Google Cloud Platform account
-- Ability to create 2 x c2-standard-60 machines (smaller machine shapes can be used, but in testing the most powerful shape gave the best results)
+- Ability to create 2 x c2-standard-60 machines (smaller/cheaper machine shapes can be used, but in testing the most powerful of the compute optimize shape gave the best results)
 - Sufficient C2 CPU quota in the region of your choice to create the VMs
 - Ability to create a GCS bucket
 
@@ -24,7 +25,7 @@ This project is a simple set of scripts to show how to get microsecond latency b
 The below assumes the commands below are being run in Google's Cloud Shell: 
 
 - Via your Google Cloud Console, open up the Cloud Shell
-- Clone this repository to a directory of your choice which will create an mpi-gce directory: `git clone https://github.com/richardpaget/mpi-gce`
+- Clone this repository to a directory of your choice which will create an mpi-gce directory: `git clone https://github.com/chiefwigan/mpi-gce`
 - Inside the mpi-gce directory, make installation-setup.sh executable: `chmod 755 installation-setup.sh`, then execute the file with your project_id as a parameter, eg. `./installation_setup.sh my-project`
 - In the same directory run: `terraform init`
 - In the same directory run: `terraform apply`
@@ -35,7 +36,7 @@ The below assumes the commands below are being run in Google's Cloud Shell:
 - As per the instructions from the above executed file run:  
 `source /opt/intel/psxe_runtime/linux/bin/psxevars.sh`  
 then    
-`mpirun -np 2 -ppn 1 -hosts mpi-instance-01,mpi-instance-02 IMB-MPI1 PingPong`
+`mpirun -np 2 -ppn 1 -hosts mpi-instance-01,mpi-instance-02 IMB-MPI1 -iter 10000 PingPong`
 
 You should hopefully see latency of around 8-10 microseconds for the first 512 bytes using the Intel MPI test. Note - I've seen variations of between 7 to 12 microseconds dueing this basic testing.
 

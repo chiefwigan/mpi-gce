@@ -22,5 +22,5 @@ echo "Please log into mpi-instance-02 before running below commands to allow SSH
 echo "For Intel MPI please run:"
 echo "source /opt/intel/psxe_runtime/linux/bin/psxevars.sh"
 echo "then:"
-echo "mpirun -np 2 -ppn 1 -hosts mpi-instance-01,mpi-instance-02 IMB-MPI1 PingPong"
+echo "mpirun -np 2 -ppn 1 -hosts mpi-instance-01,mpi-instance-02 IMB-MPI1 -iter 10000 PingPong"
 echo "****************************************"
