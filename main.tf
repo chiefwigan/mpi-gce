@@ -33,11 +33,13 @@ resource "google_compute_instance" "vm_instance" {
     }
   }
 
-  network_interface {
+   network_interface {
     network = "default"
+    nic_type = "GVNIC"
     access_config {
     }
   }
+  
   service_account {
     scopes = ["storage-ro"]
   }
